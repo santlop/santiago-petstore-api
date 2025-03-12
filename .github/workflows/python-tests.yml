@@ -1,0 +1,37 @@
+name: Python API Tests
+
+on:
+  push:
+    branches:
+      - master  # Run tests after each push on master branch
+  pull_request:
+    branches:
+      - main  # Run tests after each push on master branch
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: ⬇️ Checkout repository
+      uses: actions/checkout@v3
+
+    - name: 🐍 Set up Python 3.9.1
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9.1'
+
+    - name: 📦 Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: ⚙️ Run Pytest
+      run: |
+        pytest
+
+    - name: 📤 Upload HTML Report
+      uses: actions/upload-artifact@v3
+      with:
+        name: pytest-report
+        path: report.html
