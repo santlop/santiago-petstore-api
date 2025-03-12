@@ -60,8 +60,3 @@ class TestPets:
 
         #ASSERTIONS
         assert response.status_code == 200
-
-        
-
-
-
